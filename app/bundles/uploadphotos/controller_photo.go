@@ -30,12 +30,12 @@ func (c *UploadPhotoController) Upload(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	common.UploadToS3(file, "/profile-photos/53")
+	common.UploadToS3(file, "/profile-photos/54")
 	c.SendJSON(w, r, filename, http.StatusOK)
 }
 
 //Download a photo
 func (c *UploadPhotoController) Download(w http.ResponseWriter, r *http.Request) {
-	file := common.DownloadFromS3("/profile-photos/53")
+	file := common.DownloadFromS3("/profile-photos/54")
 	c.SendJPEG(w, r, file, http.StatusOK)
 }

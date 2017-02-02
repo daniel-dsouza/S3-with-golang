@@ -35,13 +35,14 @@ func (c *Controller) SendJPEG(w http.ResponseWriter, r *http.Request, buffer *by
 	w.Header().Add("Content-Type", "image/jpeg")
 	w.Header().Add("Content-Length", strconv.Itoa(len(buffer.Bytes())))
 
+	w.WriteHeader(code)
 	_, err := w.Write(buffer.Bytes())
 
-	if err != nil {
+	if err != nil { // this is technicall wrong, the header should be written before content
 		log.Println("unable to write image")
 		w.WriteHeader(http.StatusInternalServerError)
 	} else {
-		w.WriteHeader(code)
+		//w.WriteHeader(code)
 	}
 
 }
