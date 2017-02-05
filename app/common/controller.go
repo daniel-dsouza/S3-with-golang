@@ -8,6 +8,8 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/websocket"
 )
 
 // Controller handle all base methods
@@ -44,5 +46,20 @@ func (c *Controller) SendJPEG(w http.ResponseWriter, r *http.Request, buffer *by
 	} else {
 		//w.WriteHeader(code)
 	}
+}
 
+// SendWebSocket upgrades to a websocket connection, and returns the connection
+func (c *Controller) SendWebSocket(w http.ResponseWriter, r *http.Request) *websocket.Conn {
+	upgrader := websocket.Upgrader{
+		ReadBufferSize:  1024,
+		WriteBufferSize: 1024,
+	}
+
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return conn
 }

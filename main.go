@@ -16,7 +16,7 @@ func main() {
 	r := mux.NewRouter()
 	s := r.PathPrefix("/api/v1/").Subrouter()
 
-	s.HandleFunc("/photo", photocontroller.Upload).Methods("PUT")
+	s.HandleFunc("/photo", photocontroller.Upload).Methods("POST")
 	s.HandleFunc("/down", photocontroller.Download).Methods("GET")
 
 	http.Handle("/", r)
